@@ -1,0 +1,13 @@
+D:\Code\C#\SEW_SOFTWARE\SEW_SOFTWARE\bin\Debug\SEW_SOFTWARE.exe.config
+D:\Code\C#\SEW_SOFTWARE\SEW_SOFTWARE\obj\Debug\SEW_SOFTWARE.csprojResolveAssemblyReference.cache
+D:\Code\C#\SEW_SOFTWARE\SEW_SOFTWARE\obj\Debug\SEW_SOFTWARE.Form1.resources
+D:\Code\C#\SEW_SOFTWARE\SEW_SOFTWARE\obj\Debug\SEW_SOFTWARE.Form2.resources
+D:\Code\C#\SEW_SOFTWARE\SEW_SOFTWARE\obj\Debug\SEW_SOFTWARE.Properties.Resources.resources
+D:\Code\C#\SEW_SOFTWARE\SEW_SOFTWARE\obj\Debug\SEW_SOFTWARE.csproj.GenerateResource.Cache
+D:\Code\C#\SEW_SOFTWARE\SEW_SOFTWARE\bin\Debug\SEW_SOFTWARE.exe
+D:\Code\C#\SEW_SOFTWARE\SEW_SOFTWARE\bin\Debug\SEW_SOFTWARE.pdb
+D:\Code\C#\SEW_SOFTWARE\SEW_SOFTWARE\bin\Debug\System.Data.Common.dll
+D:\Code\C#\SEW_SOFTWARE\SEW_SOFTWARE\bin\Debug\System.Data.SqlClient.dll
+D:\Code\C#\SEW_SOFTWARE\SEW_SOFTWARE\obj\Debug\SEW_SOFTWARE.sql.resources
+D:\Code\C#\SEW_SOFTWARE\SEW_SOFTWARE\obj\Debug\SEW_SOFTWARE.exe
+D:\Code\C#\SEW_SOFTWARE\SEW_SOFTWARE\obj\Debug\SEW_SOFTWARE.pdb
