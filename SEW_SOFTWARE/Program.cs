@@ -17,7 +17,8 @@ namespace SEW_SOFTWARE
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Form1());
-            /// git test
+            /// local git test
+            /// vs git test
         }
     }
 }
