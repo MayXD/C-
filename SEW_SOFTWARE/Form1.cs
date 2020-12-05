@@ -13,8 +13,6 @@ namespace SEW_SOFTWARE
 {
     public partial class Form1 : Form
     {
-        public string connString = "Data Source = localhost；Initial Catalog = SEW；User ID = wuyue；Pwd = Kylin123.";
-        public SqlConnection conn;
         public Form1()
         {
             InitializeComponent();
@@ -27,23 +25,40 @@ namespace SEW_SOFTWARE
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            conn = new SqlConnection(connString);
-            DataSet cdbDs = new DataSet();
+            SqlConnection conn = BaseClass.database.myCon();
             string cdbSql = "select * from CDB";
             try
             {
                 conn.Open();
-                SqlDataAdapter cdbAdp = new SqlDataAdapter(cdbSql, conn);
-                cdbAdp.Fill(cdbDs);
-                this.comboBox1.DataSource = cdbDs.Tables[0].DefaultView;
-                this.comboBox1.DisplayMember = "cbd";
-                this.comboBox1.ValueMember = "cbd";
+                SqlCommand cmd = new SqlCommand(cdbSql, conn);
+                SqlDataReader cdbSdr = cmd.ExecuteReader();
+                while (cdbSdr.Read())
+                {
+                    comboBox1.Items.Add(cdbSdr["cdb"].ToString().Trim());
+                }
+                cdbSdr.Close();
+            }
+            catch
+            {
+                MessageBox.Show("sql error");
             }
             finally
             {
                 if (conn.State == ConnectionState.Open)
+                {
                     conn.Close();
+                }
             }
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            //MessageBox.Show(this.comboBox1.SelectedItem.ToString());
+        }
+
+        private void label5_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

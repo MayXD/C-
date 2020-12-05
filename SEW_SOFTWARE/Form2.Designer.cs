@@ -81,7 +81,7 @@
             // 
             this.button1.Location = new System.Drawing.Point(183, 328);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.Size = new System.Drawing.Size(75, 25);
             this.button1.TabIndex = 4;
             this.button1.Text = "返回";
             this.button1.UseVisualStyleBackColor = true;
@@ -90,7 +90,7 @@
             // 
             this.button2.Location = new System.Drawing.Point(264, 328);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
+            this.button2.Size = new System.Drawing.Size(75, 25);
             this.button2.TabIndex = 5;
             this.button2.Text = "退出";
             this.button2.UseVisualStyleBackColor = true;
@@ -99,7 +99,7 @@
             // 
             this.button3.Location = new System.Drawing.Point(345, 328);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(75, 23);
+            this.button3.Size = new System.Drawing.Size(75, 25);
             this.button3.TabIndex = 6;
             this.button3.Text = "再次输入";
             this.button3.UseVisualStyleBackColor = true;
@@ -144,7 +144,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(432, 363);
+            this.ClientSize = new System.Drawing.Size(457, 383);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label6);
@@ -157,6 +157,7 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Name = "Form2";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "SEW选型";
             this.Load += new System.EventHandler(this.Form2_Load);
             this.ResumeLayout(false);
