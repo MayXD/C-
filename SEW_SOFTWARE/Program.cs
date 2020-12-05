@@ -16,12 +16,7 @@ namespace SEW_SOFTWARE
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Form1 Form1 = new Form1();
-            Form1.ShowDialog();
-            if (Form1.closeflag == false)
-            {
-                Application.Run(new Form2());
-            }
+            Application.Run(new Form1());
             /// local git test
             /// vs git test
         }

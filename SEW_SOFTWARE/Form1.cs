@@ -18,7 +18,12 @@ namespace SEW_SOFTWARE
             InitializeComponent();
         }
 
-        public bool closeflag = true;
+        public static bool closeflag = true;
+        public float zj;
+        public float cdb;
+        public float secNum;
+        public String azxs;
+        public int nzq;
 
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -72,12 +77,32 @@ namespace SEW_SOFTWARE
         }
         private void button1_Click(object sender, EventArgs e)
         {
+            Application.Exit();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
             try
             {
+                zj = Convert.ToSingle(this.textBox1.Text.Trim());
+                cdb = Convert.ToSingle(this.comboBox1.Text.Trim());
+                secNum = Convert.ToSingle(this.comboBox2.Text.Trim());
                 if (this.comboBox1.Text == "")
                     MessageBox.Show("请选择一个传动比");
                 if (this.textBox1.Text == "")
                     MessageBox.Show("请输入正确的转矩");
+                if (this.radioButton1.Checked)
+                    azxs = "F";
+                else if (this.radioButton2.Checked)
+                    azxs = "K/T";
+                else
+                    MessageBox.Show("请选择是否加装逆止器");
+                if (this.radioButton3.Checked)
+                    nzq = 1;
+                else if(this.radioButton4.Checked)
+                    nzq = 0;
+                else
+                    MessageBox.Show("请选择一种安装型式");
             }
             catch
             {
@@ -85,11 +110,21 @@ namespace SEW_SOFTWARE
             }
             finally
             {
+                Form2 Form2 = new Form2(this);
                 this.Hide();
-                this.closeflag = false;
+                Form2.Show();
             }
         }
 
+        private void radioButton3_CheckedChanged(object sender, EventArgs e)
+        {
+            //if (radioButton4.Checked)
+            //    radioButton3.Checked = false;
+        }
 
+        private void radioButton1_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
