@@ -49,9 +49,9 @@ namespace SEW_SOFTWARE
                     conn.Close();
                 }
             }
-            //this.comboBox2.Items.Add(Convert.ToString(1.1));
-            //this.comboBox2.Items.Add(Convert.ToString(1.5));
-            //this.comboBox2.Items.Add(Convert.ToString(1.8));
+            this.combobox2.items.add(Convert.ToString(1.1));
+            this.combobox2.items.add(Convert.ToString(1.5));
+            this.combobox2.items.add(Convert.ToString(1.8));
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
