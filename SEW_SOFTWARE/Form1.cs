@@ -49,6 +49,9 @@ namespace SEW_SOFTWARE
                     conn.Close();
                 }
             }
+            //this.comboBox2.Items.Add(Convert.ToString(1.1));
+            //this.comboBox2.Items.Add(Convert.ToString(1.5));
+            //this.comboBox2.Items.Add(Convert.ToString(1.8));
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -59,6 +62,16 @@ namespace SEW_SOFTWARE
         private void label5_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            //float secNum = Convert.ToSingle(this.comboBox2.Text);
         }
     }
 }
