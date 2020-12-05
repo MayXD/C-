@@ -18,14 +18,11 @@ namespace SEW_SOFTWARE
             InitializeComponent();
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-
-        }
+        public bool closeflag = true;
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            SqlConnection conn = BaseClass.database.myCon();
+            SqlConnection conn = DBcon.MyCon();
             string cdbSql = "select * from CDB";
             try
             {
@@ -49,9 +46,9 @@ namespace SEW_SOFTWARE
                     conn.Close();
                 }
             }
-            this.combobox2.items.add(Convert.ToString(1.1));
-            this.combobox2.items.add(Convert.ToString(1.5));
-            this.combobox2.items.add(Convert.ToString(1.8));
+            this.comboBox2.Items.Add(Convert.ToString(1.1));
+            this.comboBox2.Items.Add(Convert.ToString(1.5));
+            this.comboBox2.Items.Add(Convert.ToString(1.8));
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -71,7 +68,28 @@ namespace SEW_SOFTWARE
 
         private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //float secNum = Convert.ToSingle(this.comboBox2.Text);
+
         }
+        private void button1_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (this.comboBox1.Text == "")
+                    MessageBox.Show("请选择一个传动比");
+                if (this.textBox1.Text == "")
+                    MessageBox.Show("请输入正确的转矩");
+            }
+            catch
+            {
+                MessageBox.Show("未知错误");
+            }
+            finally
+            {
+                this.Hide();
+                this.closeflag = false;
+            }
+        }
+
+
     }
 }
