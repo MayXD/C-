@@ -19,15 +19,18 @@ namespace SEW_SOFTWARE
         }
 
         public static bool closeflag = true;
+        public static bool jumpFlag = false;
         public int jx;
         public float zj;
         public float cdb;
         public float secNum;
         public String azxs;
         public int nzq;
+        public String searchJx;
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            textBox1.Focus();
             SqlConnection conn = DBcon.MyCon();
             string cdbSql = "select * from CDB";
             try
@@ -94,8 +97,12 @@ namespace SEW_SOFTWARE
                     MessageBox.Show("请选择一个传动比");
 
                 if (this.textBox1.Text == "")
+                {
                     MessageBox.Show("请输入正确的转矩");
                     this.textBox1.Focus();
+                }
+                else if (Convert.ToDouble(this.textBox1.Text) > 432)
+                    MessageBox.Show("你输入的转矩过大");
 
                 if (this.comboBox2.Text == "")
                     MessageBox.Show("请输入或选择一个安全系数");
@@ -115,41 +122,49 @@ namespace SEW_SOFTWARE
                 else
                     MessageBox.Show("请选择一种安装型式");
                 /// 计算客户需要的实际转矩
-                float relZj = zj * secNum; 
+                float relZj = zj * secNum;
                 SqlConnection conn2 = DBcon.MyCon();
                 try
                 {
                     conn2.Open();
                     /// 查找 额定转矩-机型 表，得到最接近实际转矩的额定转矩，从大到小开始循环
-                    string cdbSql2 = "select * from EDZJ where edzj <= '" + relZj + "'order by jx desc";
-                    SqlCommand cmd2 = new SqlCommand(cdbSql2, conn2);
-                    SqlDataReader cdbSdr2 = cmd2.ExecuteReader();
-                    while (cdbSdr2.Read())
+                    string jxSql = "select jx from EDZJ where edzj <= '" + relZj + "'order by jx desc";
+                    SqlDataAdapter zjDa = new SqlDataAdapter(jxSql, conn2);
+                    DataSet zjDs = new DataSet();
+                    zjDa.Fill(zjDs);
+                    DataTable zjDt = zjDs.Tables[0];
+                    int[] jxList = new int[zjDt.Rows.Count];
+
+                    for (int i=0;i<zjDt.Rows.Count;i++)
+                    {
+                        DataRow zjDr = zjDt.Rows[i];
+                        jxList[i] = Convert.ToInt16(zjDr[0]);
+                    }
+
+                    foreach (int tmpJx in jxList)
                     {
                         ///第一个额定转矩，以及对应的机型，以此类推
-                        int tmpJx = Convert.ToInt16(cdbSdr2[0].ToString().Trim());
                         String searchJx = "F" + (tmpJx - 100) / 10;
-                        float tmpZj = Convert.ToSingle(cdbSdr2[1]);
+                        string cdbSql2 = "select "+searchJx+" from "+azxs+"";
+                        SqlDataAdapter cdbDa = new SqlDataAdapter(cdbSql2, conn2);
+                        DataSet cdbDs = new DataSet();
+                        cdbDa.Fill(cdbDs);
+                        DataTable cdbDt = cdbDs.Tables[0];
+                        float[] cdbList = new float[cdbDt.Rows.Count];
                         ///查找本次机型以及安装形式对应的 机型-传动比 表，匹配用户选择的传动比
-                        string cdbSql = "select '"+searchJx+"' from '"+azxs+"'";
-                        SqlCommand cmd3 = new SqlCommand(cdbSql, conn2);
-                        SqlDataReader cdbSdr3 = cmd3.ExecuteReader();
-                        while (cdbSdr3.Read())
+                        foreach (float tmpCdb in cdbList)
                         {
-                            int tmpCdb = Convert.ToInt16(cdbSdr3[0]);
                             if (tmpCdb == cdb)
                                 cdb = tmpCdb;
                                 jx = tmpJx;
-                                break;
+                                jumpFlag = true;
+                                return;
                         }
-
-
-                    }
-                    cdbSdr2.Close();
+                    } 
                 }
-                catch
+                catch(Exception ex)
                 {
-                    MessageBox.Show("SQL ERROR");
+                    MessageBox.Show("SQL ERROR" + ex.Message);
                 }
                 finally
                 {
@@ -159,16 +174,18 @@ namespace SEW_SOFTWARE
                     }
                 }
             }
-            catch
+            catch(Exception ex)
             {
-                MessageBox.Show("参数填写错误");
+                MessageBox.Show("参数填写错误" + ex.Message);
             }
             finally
             {
-
-                Form2 Form2 = new Form2(this);
-                this.Hide();
-                Form2.Show();
+                if (jumpFlag)
+                {
+                    Form2 Form2 = new Form2(this);
+                    this.Hide();
+                    Form2.Show();
+                }
             }
         }
 
@@ -185,6 +202,42 @@ namespace SEW_SOFTWARE
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             System.Environment.Exit(0);
+        }
+
+        private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            /// 允许输入数字、小数点、删除键和负号  
+            if ((e.KeyChar < 48 || e.KeyChar > 57) && e.KeyChar != 8 && e.KeyChar != (char)('.'))
+            {
+                MessageBox.Show("请输入正确的数字");
+                this.textBox1.Text = "";
+                e.Handled = true;
+            }
+            /*小数点只能输入一次*/
+            if (e.KeyChar == (char)('.') && ((TextBox)sender).Text.IndexOf('.') != -1)
+            {
+                MessageBox.Show("请输入正确的数字");
+                this.textBox1.Text = "";
+                e.Handled = true;
+            }
+            /*第一位不能为小数点*/
+            if (e.KeyChar == (char)('.') && ((TextBox)sender).Text == "")
+            {
+                MessageBox.Show("请输入正确的数字");
+                this.textBox1.Text = "";
+                e.Handled = true;
+            }
+            /*第一位是0，第二位必须为小数点*/
+            if (e.KeyChar != (char)('.') && ((TextBox)sender).Text == "0")
+            {
+                MessageBox.Show("请输入正确的数字");
+                this.textBox1.Text = "";
+                e.Handled = true;
+            }
+        }
+
+        private void comboBox2_KeyPress(object sender, KeyPressEventArgs e)
+        {
         }
     }
 }

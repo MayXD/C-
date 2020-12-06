@@ -12,7 +12,11 @@ namespace SEW_SOFTWARE
 {
     public partial class Form2 : Form
     {
-        Form1 _form1;
+        private Form1 _form1 = null;
+        public Form2()
+        {
+            InitializeComponent();
+        }
         public Form2(Form1 form1)
         {
             InitializeComponent();
@@ -39,8 +43,8 @@ namespace SEW_SOFTWARE
 
         private void button1_Click(object sender, EventArgs e)
         {
-            this.Close();
             _form1.Show();
+            this.Dispose();
         }
 
         private void Form2_FormClosing(object sender, FormClosingEventArgs e)

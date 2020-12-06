@@ -12,5 +12,6 @@ namespace SEW_SOFTWARE
         {
             return new SqlConnection("server=localhost;database=SEW;uid=wuyue;pwd=Kylin123.");
         }
+
     }
 }
